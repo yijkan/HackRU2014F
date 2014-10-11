@@ -140,7 +140,13 @@ var sendMsg = function(message) {
 var gameHTML = [
 	//TODO
 	"HTML of initial game goes here",
-	"btw this is an array of strings that will be joined together when updating the page with jquery"
+	"btw this is an array of strings that will be joined together when updating the page with jquery",
+	'<img src="img/head0.jpg" alt="" class="head">',
+	'<img src="img/rightA0.jpg" alt="" class="rightA">',
+	'<img src="img/leftA0.jpg" alt="" class="leftA">',
+	'<img src="img/torsoA0.jpg" alt="" class="torso">',
+	'<img src="img/hrightL0.jpg" alt="" class="rightL">',
+	'<img src="img/leftL0.jpg" alt="" class="leftL">'
 ];
 
 var gameEnd = function() {
