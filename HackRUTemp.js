@@ -8,12 +8,17 @@ var rightL=0;
 
 // how many heals the user has left
 var heals=3;
-// how many milliseconds between heal generation
+// how many millisecondsc between heal generation
 var delay;
 
-// the function that actually creates an injury -- don't worry about timing yet
+// the function that actually creates an injury
 var createInjury = function() {
+	// choose a random body part and increase it by one
+}
 
+// the function that creates a heal
+var createHeal = function() {
+	heal++;
 }
 
 var tryHeal = function() {
