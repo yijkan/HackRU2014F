@@ -42,7 +42,7 @@ var gameHTML = [
 $(document).ready(function() {
 	$('.play').click(function() {
 		$('.game').empty();
-		#('.game').append(gameHTML.join(''));
+		$('.game').append(gameHTML.join(''));
 
 		setTimeout(createInjury, delay);
 	});
