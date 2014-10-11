@@ -1,3 +1,6 @@
+// to represent score (seconds elapsed)
+var time;
+
 // these represent how many heals left until the body part is healthy
 var head=0;
 var leftA=0;
@@ -140,10 +143,18 @@ var gameHTML = [
 	"btw this is an array of strings that will be joined together when updating the page with jquery"
 ];
 
+var gameEnd = function() {
+	$('.game').empty();
+	$('.game').append("Game Over.<br>Your score is " + score);
+}
+
 $(document).ready(function() {
 	$('.play').click(function() {
 		$('.game').empty();
 		$('.game').append(gameHTML.join(''));
+
+		date = new Date;
+		time = date.getTime();
 
 		setTimeout(createInjury, delayInjury); // TODO: put this in some kind of for loop 
 		setTimeout(createHeal, delayHeal);
