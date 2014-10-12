@@ -165,15 +165,24 @@ $(document).ready(function() {
 		console.log(gameContinuing);
 
 		/* To keep creating heals */
-		setTimeout(createInjury, delayInjury); // not done by interval because it varies - var injuryCreation = setInterval(createInjury, delayInjury);
+		setTimeout(createInjury, delayInjury); 	// not done by interval because it varies
+												// var injuryCreation = setInterval(createInjury, delayInjury);
 		var healCreation = setInterval(createHeal, delayHeal);
 		var continuous = setInterval(updates, 100);
 
 		console.log("created");
 	});
 
-	$('.mid').mouseleave(function() { if (gameContinuing) { gameContinuing = false; $('.game').append("<div class='pause'>GAME PAUSED</div>") } });
-	$('.mid').mouseenter(function() { gameContinuing = true; $('.pause').remove() });
+	$('.mid').mouseleave(function() { 
+		if (gameContinuing) { 
+			gameContinuing = false; 
+			$('.game').append("<div class='pause'>GAME PAUSED</div>");
+		} 
+	});
+	$('.mid').mouseenter(function() { 
+		gameContinuing = true; 
+		$('.pause').remove(); 
+	});
 
 	/* when the player clicks on a body, the game will heal it if there are enough heals */
 	$('.head').click(function() {
