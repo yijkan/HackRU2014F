@@ -37,7 +37,7 @@ var createInjury = function() {
 				// head = Math.floor((3 - head) * Math.random()) + 1;
 				else {
 					head+=1;
-					$('.head').replaceWith("<img class='head' src='img/head" + head + ".png'>");
+					$('.head').attr("src", "<img class='head' src='img/head" + head + ".png'>");
 					// TODO
 					sendMsg("Head injury!");
 				}
@@ -49,7 +49,7 @@ var createInjury = function() {
 				// leftA = Math.floor((3 - leftA) * Math.random()) + 1;
 				else {
 					leftA+=1;
-					$('.leftA').replaceWith("<img class='leftA' src='img/leftA" + leftA + ".png'>");
+					$('.leftA').attr("src", "<img class='leftA' src='img/leftA" + leftA + ".png'>");
 					// TODO
 					sendMsg("Left arm injury!");
 				}
@@ -62,7 +62,7 @@ var createInjury = function() {
 				// rightA = Math.floor((3 - rightA) * Math.random()) + 1;
 				else {
 					rightA+=1
-					$('.rightA').replaceWith("<img class='rightA' src='img/rightA" + rightA + ".png'>");
+					$('.rightA').attr("src", "<img class='rightA' src='img/rightA" + rightA + ".png'>");
 					// TODO
 					sendMsg("Right arm injury!");
 				}
@@ -73,7 +73,7 @@ var createInjury = function() {
 				}
 				else {
 					torso+=1;
-					$('.torso').replaceWith("<img class='torso' src='img/torso" + torso + ".png'>");
+					$('.torso').attr("src", "<img class='torso' src='img/torso" + torso + ".png'>");
 					// TODO
 					sendMsg("Torso injury!");
 				}
@@ -86,7 +86,7 @@ var createInjury = function() {
 				}
 				else {
 					leftL+=1;
-					$('.leftL').replaceWith("<img class='leftL' src='img/leftL" + leftL + ".png'>");
+					$('.leftL').attr("src", "<img class='leftL' src='img/leftL" + leftL + ".png'>");
 					// TODO
 					sendMsg("Left leg injury!");
 				}
@@ -100,7 +100,7 @@ var createInjury = function() {
 				// rightL = Math.floor((3 - rightL) * Math.random()) + 1;
 				else {
 					rightL+=1;
-					$('.rightL').replaceWith("<img class='rightL' src='img/rightL" + rightL + ".png'>");
+					$('.rightL').attr("src", "<img class='rightL' src='img/rightL" + rightL + ".png'>");
 					// TODO
 					sendMsg("Right leg injury!");
 				}
@@ -218,7 +218,7 @@ $(document).ready(function() {
 			if (heals > 0 && head > 1) {
 				heals--;
 				head--;
-				$('.head').replaceWith("<img class='head' src='img/head" + head + ".png'>");
+				$('.head').attr("src", "<img class='head' src='img/head" + head + ".png'>");
 			} else {
 				sendMsg("Need more heals!");
 			}
@@ -229,7 +229,7 @@ $(document).ready(function() {
 			if (heals > 0 && leftA > 1) {
 				heals--;
 				leftA--;
-				$('.leftA').replaceWith("<img class='leftA' src='img/leftA" + leftA + ".png'>");
+				$('.leftA').attr("src", "<img class='leftA' src='img/leftA" + leftA + ".png'>");
 			} else {
 				sendMsg("Need more heals!");
 			}
@@ -240,7 +240,7 @@ $(document).ready(function() {
 			if (heals > 0 && rightA > 1) {
 				heals--;
 				rightA--;
-				$('.rightA').replaceWith("<img class='rightA' src='img/rightA" + rightA + ".png'>");
+				$('.rightA').attr("src", "<img class='rightA' src='img/rightA" + rightA + ".png'>");
 			} else {
 				sendMsg("Need more heals!");
 			}
@@ -251,7 +251,7 @@ $(document).ready(function() {
 			if (heals > 0 && leftL > 1) {
 				heals--;
 				leftL--;
-				$('.leftL').replaceWith("<img class='leftL' src='img/leftL" + leftL + ".png'>");
+				$('.leftL').attr("src", "<img class='leftL' src='img/leftL" + leftL + ".png'>");
 			} else {
 				sendMsg("Need more heals!");
 			}
@@ -262,7 +262,7 @@ $(document).ready(function() {
 			if (heals > 0 && rightL > 1) {
 				heals--;
 				head--;
-				$('.rightL').replaceWith("<img class='rightL' src='img/rightL" + rightL + ".png'>");
+				$('.rightL').attr("src", "<img class='rightL' src='img/rightL" + rightL + ".png'>");
 			} else {
 				sendMsg("Need more heals!");
 			}
@@ -273,7 +273,7 @@ $(document).ready(function() {
 			if (heals > 0 && torso > 1) {
 				heals--;
 				torso--;
-				$('.torso').replaceWith("<img class='torso' src='img/torso" + torso + ".png'>");
+				$('.torso').attr("src", "<img class='torso' src='img/torso" + torso + ".png'>");
 			} else {
 				sendMsg("Need more heals!");
 			}
