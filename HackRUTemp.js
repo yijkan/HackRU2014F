@@ -2,8 +2,7 @@
 var startTime;
 var lastHeal;
 var currentTime;
-var gameContinuing;
-var gameLength;
+var gameContinuing = false;
 
 /* these represent how many heals left until the body part is healthy */
 var head=0;
@@ -26,6 +25,7 @@ var msgNo = 1;
 /* the function that creates the injuries */
 var createInjury = function() {
 	if (gameContinuing) {
+		console.log("Injury created");
 		/* choose a random body part and increase it by one */
 		var bodyChoice = Math.floor(6 * Math.random());
 		switch(bodyChoice) {
@@ -86,13 +86,14 @@ var createInjury = function() {
 		}
 		//TODO: manipulate delayInjury here?
 		delayInjury = Math.floor(6*Math.random()) + 6;
-		setTimeout(createInjury, delayInjury);
+		setTimeout(function() { createInjury }, delayInjury);
 	}
 }
 
 /* the function that creates a heal */
 var createHeal = function() {
 	if(gameContinuing) {
+		console.log("Heal created");
 		var date = new Date();
 		lastHeal = date.getTime();
 		heals++;
@@ -103,6 +104,7 @@ var createHeal = function() {
 /* when the player clicks on a body, the game will heal it if there are enough heals */
 var tryHeal = function() {
 	if(gameContinuing) {
+		console.log("Heal attempted");
 		$('.headArea').click(function() {
 				if (heals > 0) {
 					heals--;
@@ -169,20 +171,20 @@ var sendMsg = function(message) {
 
 var gameHTML = [
 	// TODO: HTML of initial game goes here
-	'<img src="img/head0.png" alt="" class="head" usemap="#bodyparts">',
+	'<img src="img/head0.png" alt="" class="head">',
 	'<img src="img/rightA0.png" alt="" class="rightA">',
 	'<img src="img/leftA0.png" alt="" class="leftA">',
 	'<img src="img/torso0.png" alt="" class="torso">',
 	'<img src="img/rightL0.png" alt="" class="rightL">',
-	'<img src="img/leftL0.png" alt="" class="leftL">',
+	'<img src="img/leftL0.png" alt="" class="leftL" usemap="#bodyparts">',
 
 	'<map name="bodyparts">',
-		'<area shape="rect" coords="326,64, 372,125" class="headArea">',
-		'<area shape="rect" coords="258,129, 324, 265" class="leftAArea">',
-		'<area shape="rect" coords="382,132, 445, 265" class="rightAArea">',
-		'<area shape="rect" coords="324,125, 386, 253" class="torsoArea">',
-		'<area shape="rect" coords="253, 315, 345, 416" class="leftLArea">',
-		'<area shape="rect" coords="253, 345, 391, 416" class="rightLArea">',
+		'<area shape="rect" coords="326,64, 372,125" class="headArea" href="#">',
+		'<area shape="rect" coords="258,129, 324, 265" class="leftAArea" href="#">',
+		'<area shape="rect" coords="382,132, 445, 265" class="rightAArea" href="#">',
+		'<area shape="rect" coords="324,125, 386, 253" class="torsoArea" href="#">',
+		'<area shape="rect" coords="315, 253, 345, 418" class="leftLArea" href="#">',
+		'<area shape="rect" coords="345, 253, 391, 418" class="rightLArea" href="#">',
 	'</map>',
 
 	'<div class="timeElapsed"></div>',
@@ -192,11 +194,14 @@ var gameHTML = [
 
 var gameEnd = function() {
 	gameContinuing = false;
+	clearInterval(healCreation);
 	$('.game').empty();
 	$('.game').append("Game Over.");
 }
 
 $(document).ready(function() {
+	console.log(gameContinuing);
+
 	$('.play').click(function() {
 		$('.game').empty();
 		$('.game').append(gameHTML.join(''));
@@ -205,18 +210,16 @@ $(document).ready(function() {
 		startTime = date.getTime();
 		gameContinuing = true;
 
+		console.log("head: " + head);
+		console.log("heals: " + heals);
+		console.log(gameContinuing);
+
 		/* To keep creating heals */
 		//var injuryCreation = setInterval(createInjury, delayInjury);
-		var healCreation = setInterval(createHeal, delayHeal);
-
-		setTimeout(function() {
-			gameContinuing = false; 
-			//clearInterval(injuryCreation); 
-			clearInterval(healCreation)
-		}, gameLength); // when to end game?
+		var healCreation = setInterval(function() { createHeal }, delayHeal);
 	});
-	$('.mid').mouseleave(function() { gameContinuing = false; });
-	$('.mid').mouseenter(function() { gameContinuing = true; });
+	$('.mid').mouseleave(function() { gameContinuing = false; $('body').append("<div class='pause'>GAME PAUSED</div>")});
+	$('.mid').mouseenter(function() { gameContinuing = true; $('.pause').remove() });
 });
 
 /* Updating the text in the game */
