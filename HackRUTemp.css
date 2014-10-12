@@ -26,7 +26,7 @@
 	height: 10%;
 	top: 0%;
 	left: 0%;
-	background-color: #7f8c8d;
+	background-color: #000000;
 }
 
 .footer {
@@ -121,22 +121,23 @@ img {
 	position: absolute;
 }
 
-/*.head {
-
+.timeElapsed {
+	color: #FFFFFF;
+	top: 93%;
+	left: 3%;
+	position: absolute;
 }
 
-.rightA {
-
+.numHeals {
+	color: #FFFFFF;
+	top: 90%;
+	left: 80%;
+	position: absolute;
 }
 
-.leftA {
-
+.untilHeal {
+	color: #FFFFFF;
+	top: 93%;
+	left: 80%;
+	position: absolute;
 }
-
-.rightL {
-
-}
-
-.rightL {
-
-} */
