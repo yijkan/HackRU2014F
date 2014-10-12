@@ -29,6 +29,7 @@
 	background-color: #000000;
 	color: #FFFFFF;
 	padding-left: 2%;
+	padding-top: 1%;
 	-webkit-box-sizing: border-box; /* Safari/Chrome, other WebKit */
     -moz-box-sizing: border-box;    /* Firefox, other Gecko */
     box-sizing: border-box;         /* Opera/IE 8+ */
@@ -124,6 +125,7 @@ img {
 	top: 0%;
 	left: 0%;
 	position: absolute;
+	z-index: -1;
 }
 
 .timeElapsed {
@@ -148,10 +150,23 @@ img {
 }
 
 .pause {
-	font-size: 4em;
-	text-align: center;
+	font-size: 3em;
+	/*text-align: center;*/
 	color: #FFFFFF;
-	margin-top: 17%;
+	margin-top: 0%;
+	margin-left: 66%;
+	-webkit-box-sizing: border-box; /* Safari/Chrome, other WebKit */
+    -moz-box-sizing: border-box;    /* Firefox, other Gecko */
+    box-sizing: border-box;         /* Opera/IE 8+ */
+	z-index: 15;
+}
+
+.gameover {
+	font-size: 2em;
+	/*text-align: center;*/
+	color: #FFFFFF;
+	margin-top: 0%;
+	margin-left: 66%;
 	-webkit-box-sizing: border-box; /* Safari/Chrome, other WebKit */
     -moz-box-sizing: border-box;    /* Firefox, other Gecko */
     box-sizing: border-box;         /* Opera/IE 8+ */

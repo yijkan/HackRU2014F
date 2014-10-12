@@ -3,7 +3,7 @@ var startTime;
 var currentTime;
 var gameContinuing = false;
 var timeElapsed = 0;
-var untilHeal = 5000;
+var untilHeal = 10000;
 
 /* these represent how many heals left until the body part is healthy */
 var head=0;
@@ -14,14 +14,22 @@ var leftL=0;
 var rightL=0;
 
 /* how many heals the user has left */
-var heals=0;
+var heals=3;
 
 /* how many milliseconds between everything */
-var delayInjury=6000;
-var delayHeal=5000;
+var delayInjury=12000;
+var delayHeal=10000;
 
 /* how many messages have shown up -- needed to delete them sequentially */
 var msgNo = 1;
+
+// the pics of corresponding body part
+var pHead = "'img/head" + head + ".png'";
+var pLeftA = "'img/leftA" + leftA + ".png'";
+var pRightA = "'img/rightA" + rightA + ".png'";
+var pTorso = "'img/torso" + torso + ".png'";
+var pLeftL = "'img/leftL" + leftL + ".png'";
+var pRightL = "'img/rightL" + rightL + ".png'";
 
 /* the function that creates the injuries */
 var createInjury = function() {
@@ -37,7 +45,7 @@ var createInjury = function() {
 				// head = Math.floor((3 - head) * Math.random()) + 1;
 				else {
 					head+=1;
-					$('.head').replaceWith("<img class='head' src='img/head" + head + ".png'>");
+					$('.head').attr("src", pHead);
 					// TODO
 					sendMsg("Head injury!");
 				}
@@ -49,7 +57,7 @@ var createInjury = function() {
 				// leftA = Math.floor((3 - leftA) * Math.random()) + 1;
 				else {
 					leftA+=1;
-					$('.leftA').replaceWith("<img class='leftA' src='img/leftA" + leftA + ".png'>");
+					$('.leftA').attr("src", pLeftA);
 					// TODO
 					sendMsg("Left arm injury!");
 				}
@@ -62,7 +70,7 @@ var createInjury = function() {
 				// rightA = Math.floor((3 - rightA) * Math.random()) + 1;
 				else {
 					rightA+=1
-					$('.rightA').replaceWith("<img class='rightA' src='img/rightA" + rightA + ".png'>");
+					$('.rightA').attr("src", pRightA);
 					// TODO
 					sendMsg("Right arm injury!");
 				}
@@ -73,7 +81,7 @@ var createInjury = function() {
 				}
 				else {
 					torso+=1;
-					$('.torso').replaceWith("<img class='torso' src='img/torso" + torso + ".png'>");
+					$('.torso').attr("src", pTorso);
 					// TODO
 					sendMsg("Torso injury!");
 				}
@@ -86,7 +94,7 @@ var createInjury = function() {
 				}
 				else {
 					leftL+=1;
-					$('.leftL').replaceWith("<img class='leftL' src='img/leftL" + leftL + ".png'>");
+					$('.leftL').attr("src", pLeftL);
 					// TODO
 					sendMsg("Left leg injury!");
 				}
@@ -100,7 +108,7 @@ var createInjury = function() {
 				// rightL = Math.floor((3 - rightL) * Math.random()) + 1;
 				else {
 					rightL+=1;
-					$('.rightL').replaceWith("<img class='rightL' src='img/rightL" + rightL + ".png'>");
+					$('.rightL').attr("src", pRightL);
 					// TODO
 					sendMsg("Right leg injury!");
 				}
@@ -108,7 +116,7 @@ var createInjury = function() {
 				break;
 		}
 		//Manipulate delayInjury here?
-		delayInjury = (Math.floor(3*Math.random())*1 + 3)*1000;
+		delayInjury = (Math.floor(6*Math.random())*1 + 6)*1000;
 		setTimeout(function() { createInjury() }, delayInjury);
 	}
 }
@@ -118,7 +126,7 @@ var createHeal = function() {
 	if(gameContinuing) {
 		console.log("Heal created");
 		var date = new Date();
-		untilHeal = 5000;
+		untilHeal = 10000;
 		heals++;
 		//TODO: manipulate delayHeal here?
 	}
@@ -163,12 +171,11 @@ var updates = function() {
 }
 
 var gameEnd = function() {
-	sendMsg("Your body shut down!")
-	$('.mid').append("<div class='gameover'>You have failed humanity. Score: " + Math.floor(timeElapsed/1000) + "</div>");
 	gameContinuing = false;
 	clearInterval(healCreation);
 	clearInterval(continuous);
-	// $('.mid').empty();
+	$('.game').empty();
+	$('.game').append("Game Over.");
 }
 
 $(document).ready(function() {
@@ -196,6 +203,10 @@ $(document).ready(function() {
 		console.log("created");
 	});
 
+	$('img').click(function () {
+		console.log("img clicked");
+	});
+
 	$('.mid').mouseleave(function() { 
 		if (gameContinuing) { 
 			gameContinuing = false; 
@@ -208,77 +219,71 @@ $(document).ready(function() {
 	});
 
 	/* when the player clicks on a body, the game will heal it if there are enough heals */
-	$(document).on('click','.head', function(){
+	$('.head').click(function() {
 		console.log("head clicked");
 		if(gameContinuing) {
 			
-			if (heals > 0 && head > 0) {
+			if (heals > 0 && head > 1) {
 				heals--;
 				head--;
-				$('.head').replaceWith("<img class='head' src='img/head" + head + ".png'>");
-				sendMsg("Head has been healed!");
+				$('.head').attr("src", pHead);
 			} else {
-				sendMsg("Cannot heal!");
+				sendMsg("Need more heals!");
 			}
 		}
 	});
-	$(document).on('click','.leftA', function(){
+	$('.leftA').click(function() {
 		if(gameContinuing) {
-			if (heals > 0 && leftA > 0) {
+			if (heals > 0 && leftA > 1) {
 				heals--;
 				leftA--;
-				$('.leftA').replaceWith("<img class='leftA' src='img/leftA" + leftA + ".png'>");
-				sendMsg("Left arm has been healed!");
+				$('.leftA').attr("src", pLeftA);
 			} else {
-				sendMsg("Cannot heal!");
+				sendMsg("Need more heals!");
 			}
 		}
 	});
-	$(document).on('click','.rightA', function(){
+	$('.rightA').click(function() {
 		if(gameContinuing) {
-			if (heals > 0 && rightA > 0) {
+			if (heals > 0 && rightA > 1) {
 				heals--;
 				rightA--;
-				$('.rightA').replaceWith("<img class='rightA' src='img/rightA" + rightA + ".png'>");
-				sendMsg("Right arm has been healed!");
+				$('.rightA').attr("src", pRightA);
 			} else {
-				sendMsg("Cannot heal!");
+				sendMsg("Need more heals!");
 			}
 		}
 	});
-	$(document).on('click','.leftL', function(){
+	$('.leftL').click(function() {
 		if(gameContinuing) {
-			if (heals > 0 && leftL > 0) {
+			if (heals > 0 && leftL > 1) {
 				heals--;
 				leftL--;
-				$('.leftL').replaceWith("<img class='leftL' src='img/leftL" + leftL + ".png'>");
-				sendMsg("Left leg has been healed!");
+				$('.leftL').attr("src", pLeftL);
 			} else {
-				sendMsg("Cannot heal!");
+				sendMsg("Need more heals!");
 			}
 		}
 	});
-	$(document).on('click','.rightL', function(){
+	$('.rightL').click(function() {
 		if(gameContinuing) {
-			if (heals > 0 && rightL > 0) {
+			if (heals > 0 && rightL > 1) {
 				heals--;
-				rightL--;
-				$('.rightL').replaceWith("<img class='rightL' src='img/rightL" + rightL + ".png'>");
-				sendMsg("Right leg has been healed!");
+				head--;
+				$('.rightL').attr("src", pRightL);
 			} else {
-				sendMsg("Cannot heal!");
+				sendMsg("Need more heals!");
 			}
 		}
 	});
-	$(document).on('click','.torso', function(){
+	$('.torso').click(function() {
 		if(gameContinuing) {
-			if (heals > 0 && torso > 0) {
+			if (heals > 0 && torso > 1) {
 				heals--;
 				torso--;
-				$('.torso').replaceWith("<img class='torso' src='img/torso" + torso + ".png'>");
-				sendMsg("Torso has been healed!");
+				$('.torso').attr("src", pTorso);
 			} else {
-				sendMsg("Cannot heal!");
+				sendMsg("Need more heals!");
 			}
 		}
 	});
