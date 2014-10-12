@@ -17,8 +17,8 @@ var rightL=0;
 var heals=3;
 
 /* how many milliseconds between everything */
-var delayInjury;
-var delayHeal;
+var delayInjury=12000;
+var delayHeal=10000;
 
 /* how many messages have shown up -- needed to delete them sequentially */
 var msgNo = 1;
@@ -34,45 +34,46 @@ var createInjury = function() {
 					createInjury();
 				}
 				head = Math.floor((3 - head) * Math.random()) + 1;
-				$('.head').replaceWith("<img class='head' src='head" + head + "'>");
+				$('.head').replaceWith("<img class='head' src='head" + head + ".png'>");
 				break;
 			case 1:
 				if (leftA === 3) {
 					createInjury();
 				}
 				leftA = Math.floor((3 - leftA) * Math.random()) + 1;
-				$('.leftA').replaceWith("<img class='leftA' src='leftA" + leftA + "'>");
+				$('.leftA').replaceWith("<img class='leftA' src='leftA" + leftA + ".png'>");
 				break;
 			case 2:
 				if (rightA === 3) {
 					createInjury();
 				}
 				rightA = Math.floor((3 - rightA) * Math.random()) + 1;
-				$('.rightA').replaceWith("<img class='rightA' src='rightA" + rightA + "'>");
+				$('.rightA').replaceWith("<img class='rightA' src='rightA" + rightA + ".png'>");
 				break;
 			case 3:
 				if (torso === 3) {
 					createInjury();
 				}
 				torso = Math.floor((3 - torso) * Math.random()) + 1;
-				$('.torso').replaceWith("<img class='torso' src='torso" + torso + "'>");
+				$('.torso').replaceWith("<img class='torso' src='torso" + torso + ".png'>");
 				break;
 			case 4:
 				if (leftL === 3) {
 					createInjury();
 				}
 				leftL = Math.floor((3 - leftL) * Math.random()) + 1;
-				$('.leftL').replaceWith("<img class='leftL' src='leftL" + leftL + "'>");
+				$('.leftL').replaceWith("<img class='leftL' src='leftL" + leftL + ".png'>");
 				break;
 			case 5:
 				if (rightL === 3) {
 					createInjury();
 				}
 				rightL = Math.floor((3 - rightL) * Math.random()) + 1;
-				$('.rightL').replaceWith("<img class='rightL' src='rightL" + rightL + "'>");
+				$('.rightL').replaceWith("<img class='rightL' src='rightL" + rightL + ".png'>");
 				break;
 		}
 		//TODO: manipulate delayInjury here?
+		delayInjury = Math.floor(6*Math.random()) + 6;
 		setTimeout(createInjury, delayInjury);
 	}
 }
@@ -92,7 +93,7 @@ var tryHeal = function() {
 				if (heals > 0) {
 					heals--;
 					head--;
-					$('.head').replaceWith("<img class='head' src='head" + head + "'>");
+					$('.head').replaceWith("<img class='head' src='head" + head + ".png'>");
 				} else {
 					sendMsg("Need more heals!");
 				}
@@ -101,7 +102,7 @@ var tryHeal = function() {
 				if (heals > 0) {
 					heals--;
 					leftA--;
-					$('.leftA').replaceWith("<img class='leftA' src='leftA" + leftA + "'>");
+					$('.leftA').replaceWith("<img class='leftA' src='leftA" + leftA + ".png'>");
 				} else {
 					sendMsg("Need more heals!");
 				}
@@ -110,7 +111,7 @@ var tryHeal = function() {
 				if (heals > 0) {
 					heals--;
 					rightA--;
-					$('.rightA').replaceWith("<img class='rightA' src='rightA" + rightA + "'>");
+					$('.rightA').replaceWith("<img class='rightA' src='rightA" + rightA + ".png'>");
 				} else {
 					sendMsg("Need more heals!");
 				}
@@ -119,7 +120,7 @@ var tryHeal = function() {
 				if (heals > 0) {
 					heals--;
 					leftL--;
-					$('.leftL').replaceWith("<img class='leftL' src='leftL" + leftL + "'>");
+					$('.leftL').replaceWith("<img class='leftL' src='leftL" + leftL + ".png'>");
 				} else {
 					sendMsg("Need more heals!");
 				}
@@ -128,7 +129,7 @@ var tryHeal = function() {
 				if (heals > 0) {
 					heals--;
 					head--;
-					$('.rightL').replaceWith("<img class='rightL' src='rightL" + rightL + "'>");
+					$('.rightL').replaceWith("<img class='rightL' src='rightL" + rightL + ".png'>");
 				} else {
 					sendMsg("Need more heals!");
 				}
@@ -137,7 +138,7 @@ var tryHeal = function() {
 				if (heals > 0) {
 					heals--;
 					torso--;
-					$('.torso').replaceWith("<img class='torso' src='torso" + torso + "'>");
+					$('.torso').replaceWith("<img class='torso' src='torso" + torso + ".png'>");
 				} else {
 					sendMsg("Need more heals!");
 				}
@@ -154,12 +155,12 @@ var sendMsg = function(message) {
 
 var gameHTML = [
 	// TODO: HTML of initial game goes here
-	'<img src="img/head0.jpg" alt="" class="head">',
-	'<img src="img/rightA0.jpg" alt="" class="rightA">',
-	'<img src="img/leftA0.jpg" alt="" class="leftA">',
-	'<img src="img/torsoA0.jpg" alt="" class="torso">',
-	'<img src="img/hrightL0.jpg" alt="" class="rightL">',
-	'<img src="img/leftL0.jpg" alt="" class="leftL">'
+	'<img src="img/head0.png" alt="" class="head">',
+	'<img src="img/rightA0.png" alt="" class="rightA">',
+	'<img src="img/leftA0.png" alt="" class="leftA">',
+	'<img src="img/torsoA0.png" alt="" class="torso">',
+	'<img src="img/rightL0.png" alt="" class="rightL">',
+	'<img src="img/leftL0.png" alt="" class="leftL">'
 	// TODO classes: timeElapsed, numHeals, untilHeal
 ];
 
