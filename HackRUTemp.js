@@ -31,45 +31,57 @@ var createInjury = function() {
 		switch(bodyChoice) {
 			case 0:
 				if (head === 3) {
-					createInjury();
+					gameEnd();
 				}
 				head = Math.floor((3 - head) * Math.random()) + 1;
 				$('.head').replaceWith("<img class='head' src='head" + head + ".png'>");
+				// TODO
+				sengMsg();
 				break;
 			case 1:
 				if (leftA === 3) {
-					createInjury();
+					gameEnd();
 				}
 				leftA = Math.floor((3 - leftA) * Math.random()) + 1;
 				$('.leftA').replaceWith("<img class='leftA' src='leftA" + leftA + ".png'>");
+				// TODO
+				sengMsg();
 				break;
 			case 2:
 				if (rightA === 3) {
-					createInjury();
+					gameEnd();
 				}
 				rightA = Math.floor((3 - rightA) * Math.random()) + 1;
 				$('.rightA').replaceWith("<img class='rightA' src='rightA" + rightA + ".png'>");
+				// TODO
+				sengMsg();
 				break;
 			case 3:
 				if (torso === 3) {
-					createInjury();
+					gameEnd();
 				}
 				torso = Math.floor((3 - torso) * Math.random()) + 1;
 				$('.torso').replaceWith("<img class='torso' src='torso" + torso + ".png'>");
+				// TODO
+				sengMsg();
 				break;
 			case 4:
 				if (leftL === 3) {
-					createInjury();
+					gameEnd();
 				}
 				leftL = Math.floor((3 - leftL) * Math.random()) + 1;
 				$('.leftL').replaceWith("<img class='leftL' src='leftL" + leftL + ".png'>");
+				// TODO
+				sengMsg();
 				break;
 			case 5:
 				if (rightL === 3) {
-					createInjury();
+					gameEnd();
 				}
 				rightL = Math.floor((3 - rightL) * Math.random()) + 1;
 				$('.rightL').replaceWith("<img class='rightL' src='rightL" + rightL + ".png'>");
+				// TODO
+				sengMsg();
 				break;
 		}
 		//TODO: manipulate delayInjury here?
@@ -81,6 +93,8 @@ var createInjury = function() {
 /* the function that creates a heal */
 var createHeal = function() {
 	if(gameContinuing) {
+		var date = new Date();
+		lastHeal = date.getTime();
 		heals++;
 		//TODO: manipulate delayHeal here?
 	}
@@ -89,7 +103,7 @@ var createHeal = function() {
 /* when the player clicks on a body, the game will heal it if there are enough heals */
 var tryHeal = function() {
 	if(gameContinuing) {
-		$('.head').click(function() {
+		$('.headArea').click(function() {
 				if (heals > 0) {
 					heals--;
 					head--;
@@ -98,7 +112,7 @@ var tryHeal = function() {
 					sendMsg("Need more heals!");
 				}
 		});
-		$('.leftA').click(function() {
+		$('.leftAArea').click(function() {
 				if (heals > 0) {
 					heals--;
 					leftA--;
@@ -107,7 +121,7 @@ var tryHeal = function() {
 					sendMsg("Need more heals!");
 				}
 		});
-		$('.rightA').click(function() {
+		$('.rightAArea').click(function() {
 				if (heals > 0) {
 					heals--;
 					rightA--;
@@ -116,7 +130,7 @@ var tryHeal = function() {
 					sendMsg("Need more heals!");
 				}
 		});
-		$('.leftL').click(function() {
+		$('.leftLArea').click(function() {
 				if (heals > 0) {
 					heals--;
 					leftL--;
@@ -125,7 +139,7 @@ var tryHeal = function() {
 					sendMsg("Need more heals!");
 				}
 		});
-		$('.rightL').click(function() {
+		$('.rightLArea').click(function() {
 				if (heals > 0) {
 					heals--;
 					head--;
@@ -134,7 +148,7 @@ var tryHeal = function() {
 					sendMsg("Need more heals!");
 				}
 		});
-		$('.torso').click(function() {
+		$('.torsoArea').click(function() {
 				if (heals > 0) {
 					heals--;
 					torso--;
@@ -155,16 +169,29 @@ var sendMsg = function(message) {
 
 var gameHTML = [
 	// TODO: HTML of initial game goes here
-	'<img src="img/head0.png" alt="" class="head">',
+	'<img src="img/head0.png" alt="" class="head" usemap="#bodyparts">',
 	'<img src="img/rightA0.png" alt="" class="rightA">',
 	'<img src="img/leftA0.png" alt="" class="leftA">',
 	'<img src="img/torso0.png" alt="" class="torso">',
 	'<img src="img/rightL0.png" alt="" class="rightL">',
-	'<img src="img/leftL0.png" alt="" class="leftL">'
-	// TODO classes: timeElapsed, numHeals, untilHeal
+	'<img src="img/leftL0.png" alt="" class="leftL">',
+
+	'<map name="bodyparts">',
+		'<area shape="rect" coords="326,64, 372,125" class="headArea">',
+		'<area shape="rect" coords="258,129, 324, 265" class="leftAArea">',
+		'<area shape="rect" coords="382,132, 445, 265" class="rightAArea">',
+		'<area shape="rect" coords="324,125, 386, 253" class="torsoArea">',
+		'<area shape="rect" coords="253, 315, 345, 416" class="leftLArea">',
+		'<area shape="rect" coords="253, 345, 391, 416" class="rightLArea">',
+	'</map>',
+
+	'<div class="timeElapsed"></div>',
+	'<div class="numHeals"></div>',
+	'<div class="untilHeal"></div>'
 ];
 
 var gameEnd = function() {
+	gameContinuing = false;
 	$('.game').empty();
 	$('.game').append("Game Over.");
 }
@@ -202,5 +229,5 @@ while(gameContinuing) {
 	$('.numHeals').append(heals + " heals left");
 
 	$('.untilHeal').empty();
-	$('.untilHeal').append(); //TODO: when we figure it out
+	$('.untilHeal').append("Next heal: " + Math.floor(lastHeal + delayHeal - date.getTime()) + "s"); //TODO: when we figure it out
 }
