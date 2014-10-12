@@ -158,7 +158,7 @@ var gameHTML = [
 	'<img src="img/head0.png" alt="" class="head">',
 	'<img src="img/rightA0.png" alt="" class="rightA">',
 	'<img src="img/leftA0.png" alt="" class="leftA">',
-	'<img src="img/torsoA0.png" alt="" class="torso">',
+	'<img src="img/torso0.png" alt="" class="torso">',
 	'<img src="img/rightL0.png" alt="" class="rightL">',
 	'<img src="img/leftL0.png" alt="" class="leftL">'
 	// TODO classes: timeElapsed, numHeals, untilHeal
