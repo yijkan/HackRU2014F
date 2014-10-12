@@ -34,55 +34,77 @@ var createInjury = function() {
 				if (head === 3) {
 					gameEnd();
 				}
-				head = Math.floor((3 - head) * Math.random()) + 1;
-				$('.head').replaceWith("<img class='head' src='head" + head + ".png'>");
-				// TODO
-				sendMsg("Head injury!");
+				// head = Math.floor((3 - head) * Math.random()) + 1;
+				else {
+					head+=1;
+					$('.head').replaceWith("<img class='head' src='img/head" + head + ".png'>");
+					// TODO
+					sendMsg("Head injury!");
+				}
 				break;
 			case 1:
 				if (leftA === 3) {
 					gameEnd();
 				}
-				leftA = Math.floor((3 - leftA) * Math.random()) + 1;
-				$('.leftA').replaceWith("<img class='leftA' src='leftA" + leftA + ".png'>");
-				// TODO
-				sendMsg("Left arm injury!");
+				// leftA = Math.floor((3 - leftA) * Math.random()) + 1;
+				else {
+					leftA+=1;
+					$('.leftA').replaceWith("<img class='leftA' src='img/leftA" + leftA + ".png'>");
+					// TODO
+					sendMsg("Left arm injury!");
+				}
+				
 				break;
 			case 2:
 				if (rightA === 3) {
 					gameEnd();
 				}
-				rightA = Math.floor((3 - rightA) * Math.random()) + 1;
-				$('.rightA').replaceWith("<img class='rightA' src='rightA" + rightA + ".png'>");
-				// TODO
-				sendMsg("Right arm injury!");
+				// rightA = Math.floor((3 - rightA) * Math.random()) + 1;
+				else {
+					rightA+=1
+					$('.rightA').replaceWith("<img class='rightA' src='img/rightA" + rightA + ".png'>");
+					// TODO
+					sendMsg("Right arm injury!");
+				}
 				break;
 			case 3:
 				if (torso === 3) {
 					gameEnd();
 				}
-				torso = Math.floor((3 - torso) * Math.random()) + 1;
-				$('.torso').replaceWith("<img class='torso' src='torso" + torso + ".png'>");
-				// TODO
-				sendMsg("Torso injury!");
+				else {
+					torso+=1;
+					$('.torso').replaceWith("<img class='torso' src='img/torso" + torso + ".png'>");
+					// TODO
+					sendMsg("Torso injury!");
+				}
+				// torso = Math.floor((3 - torso) * Math.random()) + 1;
+				
 				break;
 			case 4:
 				if (leftL === 3) {
 					gameEnd();
 				}
-				leftL = Math.floor((3 - leftL) * Math.random()) + 1;
-				$('.leftL').replaceWith("<img class='leftL' src='leftL" + leftL + ".png'>");
-				// TODO
-				sendMsg("Left leg injury!");
+				else {
+					leftL+=1;
+					$('.leftL').replaceWith("<img class='leftL' src='img/leftL" + leftL + ".png'>");
+					// TODO
+					sendMsg("Left leg injury!");
+				}
+				// leftL = Math.floor((3 - leftL) * Math.random()) + 1;
+
 				break;
 			case 5:
 				if (rightL === 3) {
 					gameEnd();
 				}
-				rightL = Math.floor((3 - rightL) * Math.random()) + 1;
-				$('.rightL').replaceWith("<img class='rightL' src='rightL" + rightL + ".png'>");
-				// TODO
-				sendMsg("Right leg injury!");
+				// rightL = Math.floor((3 - rightL) * Math.random()) + 1;
+				else {
+					rightL+=1;
+					$('.rightL').replaceWith("<img class='rightL' src='img/rightL" + rightL + ".png'>");
+					// TODO
+					sendMsg("Right leg injury!");
+				}
+				
 				break;
 		}
 		//Manipulate delayInjury here?
@@ -173,6 +195,10 @@ $(document).ready(function() {
 		console.log("created");
 	});
 
+	$('img').click(function () {
+		console.log("img clicked");
+	});
+
 	$('.mid').mouseleave(function() { 
 		if (gameContinuing) { 
 			gameContinuing = false; 
@@ -189,21 +215,21 @@ $(document).ready(function() {
 		console.log("head clicked");
 		if(gameContinuing) {
 			
-			if (heals > 0) {
+			if (heals > 0 && head > 1) {
 				heals--;
 				head--;
-				$('.head').replaceWith("<img class='head' src='head" + head + ".png'>");
+				$('.head').replaceWith("<img class='head' src='img/head" + head + ".png'>");
 			} else {
 				sendMsg("Need more heals!");
-			}f
+			}
 		}
 	});
 	$('.leftA').click(function() {
 		if(gameContinuing) {
-			if (heals > 0) {
+			if (heals > 0 && leftA > 1) {
 				heals--;
 				leftA--;
-				$('.leftA').replaceWith("<img class='leftA' src='leftA" + leftA + ".png'>");
+				$('.leftA').replaceWith("<img class='leftA' src='img/leftA" + leftA + ".png'>");
 			} else {
 				sendMsg("Need more heals!");
 			}
@@ -211,10 +237,10 @@ $(document).ready(function() {
 	});
 	$('.rightA').click(function() {
 		if(gameContinuing) {
-			if (heals > 0) {
+			if (heals > 0 && rightA > 1) {
 				heals--;
 				rightA--;
-				$('.rightA').replaceWith("<img class='rightA' src='rightA" + rightA + ".png'>");
+				$('.rightA').replaceWith("<img class='rightA' src='img/rightA" + rightA + ".png'>");
 			} else {
 				sendMsg("Need more heals!");
 			}
@@ -222,10 +248,10 @@ $(document).ready(function() {
 	});
 	$('.leftL').click(function() {
 		if(gameContinuing) {
-			if (heals > 0) {
+			if (heals > 0 && leftL > 1) {
 				heals--;
 				leftL--;
-				$('.leftL').replaceWith("<img class='leftL' src='leftL" + leftL + ".png'>");
+				$('.leftL').replaceWith("<img class='leftL' src='img/leftL" + leftL + ".png'>");
 			} else {
 				sendMsg("Need more heals!");
 			}
@@ -233,10 +259,10 @@ $(document).ready(function() {
 	});
 	$('.rightL').click(function() {
 		if(gameContinuing) {
-			if (heals > 0) {
+			if (heals > 0 && rightL > 1) {
 				heals--;
 				head--;
-				$('.rightL').replaceWith("<img class='rightL' src='rightL" + rightL + ".png'>");
+				$('.rightL').replaceWith("<img class='rightL' src='img/rightL" + rightL + ".png'>");
 			} else {
 				sendMsg("Need more heals!");
 			}
@@ -244,10 +270,10 @@ $(document).ready(function() {
 	});
 	$('.torso').click(function() {
 		if(gameContinuing) {
-			if (heals > 0) {
+			if (heals > 0 && torso > 1) {
 				heals--;
 				torso--;
-				$('.torso').replaceWith("<img class='torso' src='torso" + torso + ".png'>");
+				$('.torso').replaceWith("<img class='torso' src='img/torso" + torso + ".png'>");
 			} else {
 				sendMsg("Need more heals!");
 			}
