@@ -109,7 +109,7 @@ var createInjury = function() {
 		}
 		//Manipulate delayInjury here?
 		delayInjury = (Math.floor(6*Math.random())*1 + 6)*1000;
-		setTimeout(function() { createInjury }, delayInjury);
+		setTimeout(function() { createInjury() }, delayInjury);
 	}
 }
 
