@@ -1,7 +1,9 @@
 /* to represent score (seconds elapsed) */
 var startTime;
 var currentTime;
+var gameStarted = false;
 var gameContinuing = false;
+var gameEnded = false;
 var timeElapsed = 0;
 var untilHeal = 5000;
 
@@ -23,8 +25,13 @@ var delayHeal=5000;
 /* how many messages have shown up -- needed to delete them sequentially */
 var msgNo = 1;
 
+/* Intervals */
+var healCreation
+var continuous
+
 /* the function that creates the injuries */
 var createInjury = function() {
+	console.log("Create injury?");
 	if (gameContinuing) {
 		console.log("Injury created");
 		/* choose a random body part and increase it by one */
@@ -107,21 +114,24 @@ var createInjury = function() {
 				
 				break;
 		}
+
 		//Manipulate delayInjury here?
 		delayInjury = (Math.floor(3*Math.random())*1 + 3)*1000;
-		setTimeout(function() { createInjury() }, delayInjury);
+		setTimeout(function() { createInjury(); console.log("enter createInjury"); }, delayInjury);
+	} else {
+		setTimeout(function() { createInjury(); console.log("enter createInjury"); }, 4000);
 	}
 }
 
 /* the function that creates a heal */
 var createHeal = function() {
 	if(gameContinuing) {
-		console.log("Heal created");
+		// console.log("Heal created");
 		var date = new Date();
 		untilHeal = 5000;
 		heals++;
 		//TODO: manipulate delayHeal here?
-	}
+	} 
 }
 
 var sendMsg = function(message) {
@@ -148,7 +158,7 @@ var gameHTML = [
 /* Updating the text in the game */
 var updates = function() {
 	if (gameContinuing) {
-		console.log("update");
+		// console.log("update");
 		timeElapsed += 100;
 		$('.timeElapsed').empty();
 		$('.timeElapsed').append("Time elapsed: " + Math.floor(timeElapsed/1000) + "s");
@@ -166,12 +176,25 @@ var gameEnd = function() {
 	sendMsg("Your body shut down!")
 	$('.mid').append("<div class='gameover'>You have failed humanity. Score: " + Math.floor(timeElapsed/1000) + "</div>");
 	gameContinuing = false;
+	gameEnded = true;
 	clearInterval(healCreation);
 	clearInterval(continuous);
 	// $('.mid').empty();
 }
 
 $(document).ready(function() {
+	$(".footL").mouseenter(function () {
+		$(".description").show();
+	});
+	$(".footL").mouseleave(function () {
+		$(".description").hide();
+	});
+	$(".footR").mouseenter(function () {
+		$(".instructions").show();
+	});
+	$(".footR").mouseleave(function () {
+		$(".instructions").hide();
+	});
 	console.log(gameContinuing);
 
 	$('.play').click(function() {
@@ -181,6 +204,7 @@ $(document).ready(function() {
 
 		var date = new Date;
 		startTime = date.getTime();
+		gameStarted = true;
 		gameContinuing = true;
 
 		console.log("head: " + head);
@@ -190,21 +214,22 @@ $(document).ready(function() {
 		/* To keep creating heals */
 		setTimeout(createInjury, delayInjury); 	// not done by interval because it varies
 												// var injuryCreation = setInterval(createInjury, delayInjury);
-		var healCreation = setInterval(createHeal, delayHeal);
-		var continuous = setInterval(updates, 100);
-
-		console.log("created");
+		healCreation = setInterval(createHeal, delayHeal);
+		continuous = setInterval(updates, 100);
 	});
 
 	$('.mid').mouseleave(function() { 
-		if (gameContinuing) { 
-			gameContinuing = false; 
+		if (gameContinuing && !gameEnded) { 
+			console.log(gameContinuing + " " + gameEnded + "pause");
+			gameContinuing = false;
 			$('.game').append("<div class='pause'>GAME PAUSED</div>");
 		} 
 	});
 	$('.mid').mouseenter(function() { 
-		gameContinuing = true; 
-		$('.pause').remove(); 
+		if (gameStarted && !gameEnded) {
+			gameContinuing = true; 
+			$('.pause').remove(); 
+		}
 	});
 
 	/* when the player clicks on a body, the game will heal it if there are enough heals */
